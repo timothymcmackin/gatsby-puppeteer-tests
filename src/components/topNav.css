@@ -1,0 +1,13 @@
+#navbar {
+  background-color: #3f4657;
+}
+
+#navbar .navbar-brand a {
+  color: white;
+}
+
+#navbar .nav-link {
+  color: white;
+  display: block;
+  padding: 0.5rem 1rem;
+}
