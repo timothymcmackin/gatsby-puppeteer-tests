@@ -6,7 +6,7 @@ import './topNav.css';
 
 // Navbar for the top of the site.
 
-export default function TopNav({ tagList }) {
+export default function TopNav() {
 
   return (
     <>
@@ -19,8 +19,16 @@ export default function TopNav({ tagList }) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <a className="nav-link" href="https://github.com/timothymcmackin/gatsby-puppeteer">Github</a>
-          <TagsDropdown tagList={tagList}/>
+          <a className="nav-link" 
+            href="https://github.com/timothymcmackin/gatsby-puppeteer-tests" id="githubLink">Github</a>
+          <TagsDropdown/>
+          <Link
+            className="nav-link"
+            to="/search.html"
+            id="searchPageLink"
+          >
+            Search
+          </Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

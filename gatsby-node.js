@@ -10,6 +10,8 @@ const pageTemplate = path.resolve('src/templates/page.js');
 const tagTemplate = path.resolve('src/templates/tag.js');
 const searchTemplate = path.resolve(`src/templates/search.js`);
 
+const { buildTagList } = require('./src/utils.js');
+
 exports.createPages = async function({ actions, graphql }) {
 
   const { createPage } = actions;
@@ -23,8 +25,8 @@ exports.createPages = async function({ actions, graphql }) {
           node {
             frontmatter {
               path
-              tags
               layout
+              tags
             }
           }
         }
@@ -39,14 +41,10 @@ exports.createPages = async function({ actions, graphql }) {
 
     // Generate a page for each Markdown file based on the page component src/templates/page.js
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-      if (node.frontmatter.path && node.frontmatter.layout &&
-        node.frontmatter.layout === 'page') {
+      if (node.frontmatter.path) {
         createPage({
           path: node.frontmatter.path,
           component: pageTemplate,
-          context: {
-            tagList: tagList,
-          },
         });
       }
     });
@@ -59,7 +57,6 @@ exports.createPages = async function({ actions, graphql }) {
           component: tagTemplate,
           context: {
             tag: tag,
-            tagList: tagList,
           }
         })
       })
@@ -69,21 +66,8 @@ exports.createPages = async function({ actions, graphql }) {
     createPage({
       path: "/search.html",
       component: searchTemplate,
-      context: {
-        tagList: tagList,
-      },
-    })
+    });
 
   })
 }
 
-// Build a list of all tags that are used in the site
-function buildTagList(data) {
-  return _.uniq(data.reduce((acc, edge) => {
-    return acc.concat(edge.node.frontmatter.tags)
-  }, []))
-  .filter(tag => {
-    return tag !== null
-  })
-  .sort()
-}

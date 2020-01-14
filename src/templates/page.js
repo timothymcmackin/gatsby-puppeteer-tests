@@ -7,25 +7,27 @@ import TopNav from '../components/topNav';
 // Page component for the pages in the content/ folder.
 // Called by gatsby-node.js.
 
-export default function Template({data, pageContext }) {
+export default function Template({ data }) {
   const page = data.markdownRemark;
 
   return (
     <>
     <PageHeader title={`${page.frontmatter.title}`} />
-    <TopNav tagList={pageContext.tagList}/>
+    <TopNav/>
     <Container>
       <Row>
         <Col xl="3" lg="3">
-          <div className="left-container">{page.frontmatter.title} are:
-            <ul>
-              {page.frontmatter.tags.map((tag) => {
-                return (<li key={tag}>
-                  <Link to={`/tags/${tag}.html`}>{tag}</Link>
-                </li>)
-              })}
-            </ul>
-          </div>
+          {page.frontmatter.tags ? 
+            <div className="left-container">{page.frontmatter.title} are:
+              <ul>
+                {page.frontmatter.tags.map((tag) => {
+                  return (<li key={tag}>
+                    <Link to={`/tags/${tag}.html`}>{tag}</Link>
+                  </li>)
+                })}
+              </ul>
+            </div>
+            : null}
         </Col>
         <Col xl="9" lg="9">
           <div className="content-container">
