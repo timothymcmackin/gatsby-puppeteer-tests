@@ -8,6 +8,7 @@ const _ = require('lodash');
 
 const pageTemplate = path.resolve('src/templates/page.js');
 const tagTemplate = path.resolve('src/templates/tag.js');
+const searchTemplate = path.resolve(`src/templates/search.js`);
 
 exports.createPages = async function({ actions, graphql }) {
 
@@ -63,6 +64,15 @@ exports.createPages = async function({ actions, graphql }) {
         })
       })
     }
+
+    // Generate the search page
+    createPage({
+      path: "/search.html",
+      component: searchTemplate,
+      context: {
+        tagList: tagList,
+      },
+    })
 
   })
 }
