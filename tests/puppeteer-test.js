@@ -50,13 +50,13 @@ before(async function () {
   }
 });
 
-describe(`Testing home page`, async function () {
+describe('Testing home page', async function () {
   this.timeout(10000);
   
   it('loads in the browser', async function () {
     // Load the home page in the browser and take a screenshot
     await page.goto(basePath, { waitUntil: 'networkidle2' });
-    await page.screenshot({ path: `${screenshotPath}/homepage.png` });
+    await page.screenshot({ path: screenshotPath + '/homepage.png' });
   });
 
   it('has the correct home page link, site title, and Github link', async function () {
